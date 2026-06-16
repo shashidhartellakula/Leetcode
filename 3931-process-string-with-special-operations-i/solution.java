@@ -1,6 +1,6 @@
 class Solution {
     public String processStr(String s) {
-        StringBuilder sb=new StringBuilder();
+         StringBuilder sb=new StringBuilder();
         for(char ch:s.toCharArray()){
             if(Character.isLowerCase(ch))
                 sb.append(ch);
@@ -16,5 +16,4 @@ class Solution {
         }
         return sb.toString();
     }
-    
 }
