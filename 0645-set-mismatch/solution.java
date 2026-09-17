@@ -8,14 +8,17 @@ class Solution {
             sum+=nums[i];
         }
         int rep=0;
+        int rep1=0;
         for(int i=0;i<freq.length;i++){
             if(freq[i]==2){
                 rep=i;
-                break;
+                
+            }
+            if(freq[i]==0){
+                rep1=i;
             }
         }
-        int org=n*(n+1)/2;
-        int rep1=org-sum+rep;
+        
         return new int[]{rep,rep1};
     }
 }
