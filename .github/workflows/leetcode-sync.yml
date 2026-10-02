@@ -5,27 +5,20 @@ on:
     - cron: "0 20 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-python@v4
+      - name: Sync LeetCode
+        uses: joshcai/leetcode-sync@v1.7
         with:
-          python-version: "3.11"
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "leetcode-sync-bot"
-          git config --global user.email "bot@users.noreply.github.com"
-
-      - name: Install package
-        run: pip install leetcode-sync-cli
-
-      - name: Run sync
-        env:
-          LEETCODE_SESSION: ${{ secrets.LEETCODE_SESSION }}
-          CSRFTOKEN: ${{ secrets.CSRFTOKEN }}
-        run: leetcode-sync --sync --push
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-folder: .
+          verbose: true
+          commit-header: "[LeetCode Sync]"
